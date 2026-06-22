@@ -1,0 +1,75 @@
+Application-Aware Routing (AAR) Policy Configuration
+
+> This configuration is executed entirely via the **vManage GUI**.
+> Navigation path: **Configuration → Policies → Centralized Policy**
+
+### 10.1. SLA Class: `SLA_VOICE_FINAL`
+
+| Parameter            | Value   |
+|----------------------|---------|
+| Loss (%)             | 5       |
+| Latency (ms)         | 150     |
+| Jitter (ms)          | 30      |
+| Fallback Best Tunnel | Enabled |
+| Criteria             | Loss    |
+| Loss Variance        | 1%      |
+
+### 10.2. App Route Policy Sequences
+
+| Sequence | Match                        | Action                                                                            |
+|----------|------------------------------|-----------------------------------------------------------------------------------|
+| 1        | App Family List: APP_VOIP    | SLA: SLA_VOICE_FINAL, Preferred: mpls, SLA Not Met: Fallback to best path         |
+| 2        | Protocol 17, Port 5060/5060  | SLA: SLA_VOICE_FINAL, Preferred: biz-internet, SLA Not Met: Fallback to best path |
+
+<br>Preferred Color: `mpls`<br>
+
+<br>SLA Not Met: `Fallback to best path` |
+| **2** | Protocol: `17` (UDP)<br>
+
+<br>Source/Dest Port: `5060` | SLA Class: `SLA_VOICE_FINAL`<br>
+
+<br>Preferred Color: `biz-internet`<br>
+
+<br>SLA Not Met: `Fallback to best path` |
+
+### 10.3. Policy Application Scope
+
+* **Site List:** `Site_HN`, `Site_HCM`
+* **VPN List:** `VPN_LAN` (VPN 10)
+
+---
+
+## 11. Spoke Isolation Configuration (Centralized Control Policy)
+
+> This configuration is executed via the **vManage GUI**.
+> Navigation path: **Configuration → Policies → Centralized Policy → Topology**
+
+### 11.1. Route Policy
+
+| Match              | Action |
+|--------------------|--------|
+| Site List: Site_HN | Reject |
+
+### 11.2. Topology Application
+
+| Direction | Site List |
+|-----------|-----------|
+| out       | Site_HCM  |
+
+---
+
+## 12. Project Information Reference
+
+> A quick reference table for the core parameters used throughout the lab deployment.
+
+| Information        | Details                                      |
+|--------------------|----------------------------------------------|
+| Organization Name  | BKACAD-SDWAN                                 |
+| System IP vManage  | 1.1.1.1                                      |
+| System IP vSmart   | 1.1.1.2                                      |
+| System IP vBond    | 1.1.1.3                                      |
+| System IP cEdge-HN | 1.1.1.101 (Site 101)                         |
+| System IP cEdge-HCM| 1.1.1.102 (Site 102)                         |
+| vBond Address      | 10.0.0.10                                    |
+| Transport Colors   | biz-internet, mpls                           |
+| Service VPN        | VPN 10                                       |
