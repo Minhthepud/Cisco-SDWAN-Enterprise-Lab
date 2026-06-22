@@ -1,0 +1,55 @@
+9. Verification Commands
+
+> Use these operational commands on the cEdge routers to verify control plane connectivity, data plane tunnels, overlay routing, and active SD-WAN policies.
+
+```text
+# ==========================================
+# 1. Control Plane & Overlay Verification
+# ==========================================
+
+# Check the status of control connections to vManage, vSmart, and vBond
+show sdwan control connections
+
+# Check the status of BFD sessions (Data Plane IPsec tunnels)
+show sdwan bfd sessions
+
+
+# ==========================================
+# 2. Routing & TLOC Verification
+# ==========================================
+
+# View the OMP routing table
+show sdwan omp routes
+
+# View the TLOC table (Transport Locators)
+show sdwan omp tlocs
+
+# View the local LAN routing table for Service VPN 10
+show ip route vrf 10
+
+
+# ==========================================
+# 3. Application-Aware Routing (AAR) & SLA
+# ==========================================
+
+# Monitor real-time link quality statistics (Loss, Latency, Jitter)
+show sdwan app-route stats
+
+# Verify configured SLA Classes and their current status
+show sdwan app-route sla-class
+
+
+# ==========================================
+# 4. Policy Verification & Traffic Tracing
+# ==========================================
+
+# View the active policies downloaded from vSmart
+show sdwan policy from-vsmart
+show sdwan policy app-route-policy
+
+# Verify the actual service path for specific traffic (e.g., VoIP/UDP port 5060)
+show sdwan policy service-path vpn 10 interface GigabitEthernet2 \
+  source-ip 10.10.1.1 dest-ip 10.10.2.1 \
+  protocol 17 source-port 5060 dest-port 5060
+
+```
