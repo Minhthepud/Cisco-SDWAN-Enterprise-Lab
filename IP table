@@ -1,0 +1,23 @@
+| Thiết bị    | Interface        | Kết nối tới           | IP Address        | VPN/VRF  |
+|-------------|------------------|-----------------------|-------------------|----------|
+| vManage     | eth1             | ISP e0/0              | 10.0.0.2/30       | VPN 0    |
+| vManage     | eth0             | Management            | 192.168.1.211/24  | VPN 512  |
+| vSmart      | eth1             | ISP e0/1              | 10.0.0.6/30       | VPN 0    |
+| vSmart      | eth0             | Management            | 192.168.1.212/24  | VPN 512  |
+| vBond       | ge0/0            | ISP e0/2              | 10.0.0.10/30      | VPN 0    |
+| vBond       | eth0             | Management            | 192.168.1.213/24  | VPN 512  |
+| ISP         | e0/0             | vManage eth1          | 10.0.0.1/30       | –        |
+| ISP         | e0/1             | vSmart eth1           | 10.0.0.5/30       | –        |
+| ISP         | e0/2             | vBond ge0/0           | 10.0.0.9/30       | –        |
+| ISP         | e1/0             | cEdge-HN Gi1 (biz)   | 10.0.1.1/30       | –        |
+| ISP         | e1/1             | cEdge-HCM Gi1 (biz)  | 10.0.2.1/30       | –        |
+| ISP         | e2/0             | cEdge-HN Gi3 (mpls)  | 10.1.1.1/24       | –        |
+| ISP         | e2/1             | cEdge-HCM Gi3 (mpls) | 10.1.2.1/24       | –        |
+| cEdge-HN    | GigabitEthernet1 | ISP e1/0 (biz)       | 10.0.1.2/30       | VPN 0    |
+| cEdge-HN    | GigabitEthernet3 | ISP e2/0 (mpls)      | 10.1.1.2/24       | VPN 0    |
+| cEdge-HN    | GigabitEthernet2 | VPC-HN               | 10.10.1.1/24      | VPN 10   |
+| cEdge-HCM   | GigabitEthernet1 | ISP e1/1 (biz)       | 10.0.2.2/30       | VPN 0    |
+| cEdge-HCM   | GigabitEthernet3 | ISP e2/1 (mpls)      | 10.1.2.2/24       | VPN 0    |
+| cEdge-HCM   | GigabitEthernet2 | VPC-HCM              | 10.10.2.1/24      | VPN 10   |
+| VPC-HN      | eth0             | cEdge-HN Gi2         | 10.10.1.10/24     | –        |
+| VPC-HCM     | eth0             | cEdge-HCM Gi2        | 10.10.2.10/24     | –        |
